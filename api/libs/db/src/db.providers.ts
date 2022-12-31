@@ -1,5 +1,8 @@
 import { Sequelize } from 'sequelize-typescript';
 import * as process from 'process';
+import { User } from '@app/db/entities/user/user.entity';
+import { Product } from '@app/db/entities/product/product.entity';
+import { Order } from '@app/db/entities/order/order.entity';
 
 export const dbProviders = [
   {
@@ -15,7 +18,7 @@ export const dbProviders = [
         logging: parseInt(process.env.DB_LOGGING, 0) === 1 || false,
       });
       // Add below all models
-      sequelize.addModels([]);
+      sequelize.addModels([User, Product, Order]);
       await sequelize.sync();
       return sequelize;
     },

@@ -21,4 +21,5 @@ cd api
 npm install
 cd ..
 docker-compose up --build
+npx sequelize-cli db:migrate
 ```

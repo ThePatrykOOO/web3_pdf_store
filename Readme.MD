@@ -17,5 +17,8 @@ Firstly I create big picture event storming, in which I describe most of the eve
 ```
 git clone git@github.com:ThePatrykOOO/web3_pdf_store.git
 cd web3_pdf_store
+cd api
+npm install
+cd ..
 docker-compose up --build
 ```

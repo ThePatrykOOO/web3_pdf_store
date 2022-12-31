@@ -1,0 +1,72 @@
+version: "3.8"
+
+services:
+  api_store:
+    image: "node:18-alpine"
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-api
+    user: "node"
+    working_dir: /usr/src/api
+    environment:
+      - NODE_ENV=production
+      - VERSION=1.0
+    volumes:
+      - ./api:/usr/src/api
+    ports:
+      - "3000:3000"
+    tty: true
+    depends_on:
+      - db
+      - memcache
+    command: "nest start --watch store"
+  api_panel_seller:
+    image: "node:18-alpine"
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-api
+    user: "node"
+    working_dir: /usr/src/api
+    environment:
+      - NODE_ENV=production
+      - VERSION=1.0
+    volumes:
+      - ./api:/usr/src/api
+    ports:
+      - "3001:3001"
+    tty: true
+    depends_on:
+      - db
+      - memcache
+    command: "nest start --watch panel_seller"
+  api_panel_admin:
+    image: "node:18-alpine"
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-api
+    user: "node"
+    working_dir: /usr/src/api
+    environment:
+      - NODE_ENV=production
+      - VERSION=1.0
+    volumes:
+      - ./api:/usr/src/api
+    ports:
+      - "3002:3002"
+    tty: true
+    depends_on:
+      - db
+      - memcache
+    command: "nest start --watch panel_admin"
+  db:
+    image: 'postgres:latest'
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=store
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+  memcache:
+    image: 'memcached:latest'
+    ports:
+      - "11211:11211"

@@ -11,3 +11,11 @@ I would like to learn this again and improve my skills in this project.
 
 Firstly I create big picture event storming, in which I describe most of the events/actions in the project.
 ![BigPicture](diagrams/big_picture.jpg)
+
+## Setup project
+
+```
+git clone git@github.com:ThePatrykOOO/web3_pdf_store.git
+cd web3_pdf_store
+docker-compose up --build
+```

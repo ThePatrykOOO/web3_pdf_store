@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/api/src",
+  "monorepo": true,
+  "root": "apps/api",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/api/tsconfig.app.json"
+  },
+  "projects": {
+    "api": {
+      "type": "application",
+      "root": "apps/api",
+      "entryFile": "main",
+      "sourceRoot": "apps/api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api/tsconfig.app.json"
+      }
+    },
+    "store": {
+      "type": "application",
+      "root": "apps/store",
+      "entryFile": "main",
+      "sourceRoot": "apps/store/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/store/tsconfig.app.json"
+      }
+    },
+    "panel_seller": {
+      "type": "application",
+      "root": "apps/panel_seller",
+      "entryFile": "main",
+      "sourceRoot": "apps/panel_seller/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/panel_seller/tsconfig.app.json"
+      }
+    },
+    "panel_admin": {
+      "type": "application",
+      "root": "apps/panel_admin",
+      "entryFile": "main",
+      "sourceRoot": "apps/panel_admin/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/panel_admin/tsconfig.app.json"
+      }
+    }
+  }
+}

@@ -40,3 +40,5 @@ COPY --chown=node:node . ./
 
 # Display directory structure
 RUN ls -l
+
+CMD ["/bin/bash", "api_start.sh"]

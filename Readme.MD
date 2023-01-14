@@ -23,3 +23,9 @@ cd ..
 docker-compose up --build
 npx sequelize-cli db:migrate
 ```
+
+Run locally
+
+```
+concurrently "nest start --watch panel_admin" "nest start --watch panel_seller" "nest start --watch store"
+```

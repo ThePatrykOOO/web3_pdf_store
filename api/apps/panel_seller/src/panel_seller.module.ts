@@ -1,11 +1,8 @@
-import {Module} from '@nestjs/common';
-import {PanelSellerController} from './panel_seller.controller';
-import {PanelSellerService} from './panel_seller.service';
+import { Module } from '@nestjs/common';
 
 @Module({
   imports: [],
-  controllers: [PanelSellerController],
-  providers: [PanelSellerService],
+  controllers: [],
+  providers: [],
 })
-export class PanelSellerModule {
-}
+export class PanelSellerModule {}

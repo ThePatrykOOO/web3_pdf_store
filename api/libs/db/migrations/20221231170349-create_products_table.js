@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      title: {
+      description: {
         type: Sequelize.TEXT,
         allowNull: false,
       },

@@ -8,6 +8,11 @@ import { IsEmailUserAlreadyExistConstraint } from '@app/utils/decorators/email-e
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from '@app/db/entities/user/auth/jwt.strategy';
+import { UserController } from './user.controller';
+import { SellerExistsDecorator } from '@app/utils/decorators/seller-exists.decorator';
+import { ProductController } from './product.controller';
+import { ProductService } from '@app/db/entities/product/product.service';
+import { productProvider } from '@app/db/entities/product/product.provider';
 
 @Module({
   imports: [
@@ -19,11 +24,14 @@ import { JwtStrategy } from '@app/db/entities/user/auth/jwt.strategy';
       signOptions: { expiresIn: '1440m' },
     }),
   ],
-  controllers: [AuthController],
+  controllers: [AuthController, UserController, ProductController],
   providers: [
     UserService,
     ...userProvider,
+    ProductService,
+    ...productProvider,
     IsEmailUserAlreadyExistConstraint,
+    SellerExistsDecorator,
     // AuthService,
     JwtStrategy,
   ],

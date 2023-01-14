@@ -32,7 +32,7 @@ export class Product extends Model<Product> {
   slug: string;
 
   @Column
-  title: string;
+  description: string;
 
   @Column
   price: number;

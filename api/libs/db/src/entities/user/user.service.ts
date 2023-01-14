@@ -10,6 +10,7 @@ import * as bcrypt from 'bcryptjs';
 import * as CryptoJS from 'crypto-js';
 import { RegisterDto } from '../../../../../apps/panel_admin/src/dto/register.dto';
 import { LoginDto } from '../../../../../apps/panel_admin/src/dto/login.dto';
+import { UserUpdateDto } from '../../../../../apps/panel_admin/src/dto/user-update.dto';
 
 @Injectable()
 export class UserService {
@@ -26,14 +27,27 @@ export class UserService {
     return users !== null;
   }
 
-  async registerUser(registerDto: RegisterDto): Promise<User> {
+  async sellerExists(id: number): Promise<boolean> {
+    const user: User = await this.userRepository.findOne({
+      where: {
+        id: id,
+        role: UserRole.SELLER,
+      },
+    });
+    return user !== null;
+  }
+
+  async registerUser(
+    registerDto: RegisterDto,
+    role: UserRole = UserRole.SELLER,
+  ): Promise<User> {
     const hashedPassword = await bcrypt.hash(registerDto.password, 10);
     return await this.userRepository.create({
       first_name: registerDto.first_name,
       last_name: registerDto.last_name,
       email: registerDto.email,
       password: hashedPassword,
-      role: UserRole.ADMIN,
+      role: role,
     } as User);
   }
 
@@ -70,7 +84,7 @@ export class UserService {
     return hash;
   }
 
-  async me(userId: string) {
+  async me(userId: number): Promise<User> {
     return await this.userRepository.findOne({
       where: { id: userId },
       attributes: [
@@ -82,5 +96,43 @@ export class UserService {
         'public_address',
       ],
     });
+  }
+
+  async userList(): Promise<User[]> {
+    return await this.userRepository.findAll();
+  }
+
+  async findUserById(id: number): Promise<User> {
+    const user: User = await this.userRepository.findOne({
+      where: { id: id },
+      attributes: [
+        'id',
+        'first_name',
+        'last_name',
+        'email',
+        'role',
+        'public_address',
+      ],
+    });
+
+    if (!user) {
+      throw new NotFoundException(User, 'User not found');
+    }
+    return user;
+  }
+
+  async updateUser(id: number, dto: UserUpdateDto): Promise<void> {
+    const user: User = await this.findUserById(id);
+
+    user.first_name = dto.first_name;
+    user.last_name = dto.last_name;
+    user.role = dto.role;
+    user.public_address = dto.public_address;
+    await user.save();
+  }
+
+  async deleteUser(id: number) {
+    const user: User = await this.findUserById(id);
+    await user.destroy();
   }
 }

@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { DbModule } from '@app/db';
 import { UtilsModule } from '@app/utils';
 import { AuthController } from './auth.controller';
 import { UserService } from '@app/db/entities/user/user.service';
@@ -17,7 +16,6 @@ import { productProvider } from '@app/db/entities/product/product.provider';
 @Module({
   imports: [
     UtilsModule,
-    DbModule,
     PassportModule,
     JwtModule.register({
       secret: 'secret',
@@ -32,7 +30,6 @@ import { productProvider } from '@app/db/entities/product/product.provider';
     ...productProvider,
     IsEmailUserAlreadyExistConstraint,
     SellerExistsDecorator,
-    // AuthService,
     JwtStrategy,
   ],
 })

@@ -27,11 +27,14 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   async register(@Body() registerDto: RegisterDto) {
     const user: User = await this.userService.registerUser(registerDto);
-    const token: string = await this.userService.createAuthToken(user);
 
     return {
       status: 'ok',
-      token: token,
+      access_token: this.jwtService.sign({
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      }),
     };
   }
 

@@ -10,12 +10,12 @@ export const dbProviders = [
     useFactory: async () => {
       const sequelize = new Sequelize({
         dialect: 'postgres',
-        host: process.env.DB_HOST || 'localhost',
-        port: parseInt(process.env.DB_PORT) || 5432,
-        username: process.env.DB_USER || 'root',
-        password: process.env.DB_PASS || 'secret',
-        database: process.env.DB_NAME || 'store',
-        logging: parseInt(process.env.DB_LOGGING, 0) === 1 || false,
+        host: process.env.DB_HOST,
+        port: parseInt(process.env.DB_PORT),
+        username: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
+        logging: parseInt(process.env.DB_LOGGING, 0) === 1,
       });
       // Add below all models
       sequelize.addModels([User, Product, Order]);

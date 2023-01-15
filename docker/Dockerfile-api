@@ -1,4 +1,6 @@
-FROM node:18-alpine
+FROM node:18.10.0-alpine
+
+RUN apk update && apk add bash
 
 # Set necessary environment variables.
 ENV NODE_ENV=production \
@@ -38,7 +40,7 @@ RUN npm cache clean --force
 # Bundle app source
 COPY --chown=node:node . ./
 
-# Display directory structure
-RUN ls -l
 
+#CMD ["sh", "api_start.sh"]
+#COPY ../docker/api_start.sh api_start.sh
 CMD ["/bin/bash", "api_start.sh"]

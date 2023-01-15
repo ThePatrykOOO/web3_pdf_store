@@ -2,15 +2,14 @@ version: "3.8"
 
 services:
   api_store:
-    image: "node:18-alpine"
     build:
       context: .
       dockerfile: docker/Dockerfile-api
     user: "node"
     working_dir: /usr/src/api
     environment:
-      - NODE_ENV=production
-      - VERSION=1.0
+      - NODE_ENV=development
+      - SERVICE_NAME=store
     volumes:
       - ./api:/usr/src/api
     ports:
@@ -19,17 +18,15 @@ services:
     depends_on:
       - db
       - memcache
-    command: "nest start --watch store"
   api_panel_seller:
-    image: "node:18-alpine"
     build:
       context: .
       dockerfile: docker/Dockerfile-api
     user: "node"
     working_dir: /usr/src/api
     environment:
-      - NODE_ENV=production
-      - VERSION=1.0
+      - NODE_ENV=development
+      - SERVICE_NAME=panel_seller
     volumes:
       - ./api:/usr/src/api
     ports:
@@ -38,17 +35,15 @@ services:
     depends_on:
       - db
       - memcache
-    command: "nest start --watch panel_seller"
   api_panel_admin:
-    image: "node:18-alpine"
     build:
       context: .
       dockerfile: docker/Dockerfile-api
     user: "node"
     working_dir: /usr/src/api
     environment:
-      - NODE_ENV=production
-      - VERSION=1.0
+      - NODE_ENV=development
+      - SERVICE_NAME=panel_admin
     volumes:
       - ./api:/usr/src/api
     ports:
@@ -57,9 +52,9 @@ services:
     depends_on:
       - db
       - memcache
-    command: "nest start --watch panel_admin"
   db:
     image: 'postgres:latest'
+    container_name: postgres.dev.store
     ports:
       - "5432:5432"
     environment:
@@ -68,5 +63,6 @@ services:
       - POSTGRES_PASSWORD=secret
   memcache:
     image: 'memcached:latest'
+    container_name: memcache.dev.store
     ports:
       - "11211:11211"

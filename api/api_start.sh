@@ -13,6 +13,14 @@ else
     npm install
 fi
 
+# Run migrations only in one service
+if [ "${SERVICE_NAME}" = "api_store" ]; then
+  echo "Run database migrations..."
+  export NODE_ENV=$NODE_ENV;
+  echo $NODE_ENV
+  npx sequelize-cli db:migrate
+fi
+
 
 if [ "${NODE_ENV}" = "production" ]; then
     echo "Nest start prod app..."
@@ -20,6 +28,6 @@ if [ "${NODE_ENV}" = "production" ]; then
     # execute the command
     $COMMAND
 else
-    echo "Nest start..."
-    npm start --debug --watch $SERVICE_NAME
+    echo "Nest start..." $SERVICE_NAME
+    nest start --watch $SERVICE_NAME
 fi

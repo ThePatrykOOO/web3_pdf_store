@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {Col, message} from 'antd';
-import {InboxOutlined, UploadOutlined} from '@ant-design/icons';
-import {useTranslation} from 'react-i18next';
+import { Col, message } from 'antd';
+import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import {Upload, UploadDragger} from '@app/components/common/Upload/Upload';
-import {Button} from '@app/components/common/buttons/Button/Button';
-import {PageTitle} from '@app/components/common/PageTitle/PageTitle';
+import { Upload, UploadDragger } from '@app/components/common/Upload/Upload';
+import { Button } from '@app/components/common/buttons/Button/Button';
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
 import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
-import {FONT_SIZE, FONT_WEIGHT} from '@app/styles/themes/constants';
+import { FONT_SIZE, FONT_WEIGHT } from '@app/styles/themes/constants';
 
 const DraggerIconWrapper = styled.div`
   font-size: 4rem;

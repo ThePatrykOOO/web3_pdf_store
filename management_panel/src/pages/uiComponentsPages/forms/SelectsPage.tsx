@@ -8,13 +8,13 @@ import {PageTitle} from '@app/components/common/PageTitle/PageTitle';
 import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
 
 const SelectsPage: React.FC = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [size, setSize] = useState<'small' | 'middle' | 'large'>('middle');
   const options = [
-    { value: t('selects.gold') },
-    { value: t('selects.lime') },
-    { value: t('selects.green') },
-    { value: t('selects.cyan') },
+    {value: t('selects.gold')},
+    {value: t('selects.lime')},
+    {value: t('selects.green')},
+    {value: t('selects.cyan')},
   ];
   const children: React.ReactNode[] = [];
 

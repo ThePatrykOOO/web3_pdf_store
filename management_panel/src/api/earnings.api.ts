@@ -1,4 +1,4 @@
-import {CurrencyType} from '@app/interfaces/interfaces';
+import { CurrencyType } from '@app/interfaces/interfaces';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export interface Balance {

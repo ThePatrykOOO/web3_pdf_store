@@ -4,7 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
 
 async function bootstrap() {
-  const app = await NestFactory.create(PanelAdminModule);
+  const app = await NestFactory.create(PanelAdminModule, { cors: true });
   app.useGlobalPipes(new ValidationPipe());
   useContainer(app.select(PanelAdminModule), { fallbackOnErrors: true });
   await app.listen(3002);

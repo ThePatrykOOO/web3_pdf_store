@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import Error404Page from "../pages/errors/Error404Page";
+import Error404Page from "../pages/Errors/Error404Page";
 import AuthLayout from "../layout/AuthLayout";
 import LoginPage from "../pages/Auth/LoginPage";
 import RequireAuth from "./RequireAuth";
 import Dashboard from "../layout/Dashboard";
 import DashboardPage from "../pages/Dashboard/DashboardPage";
+import UserListPage from "../pages/Users/UserListPage";
 
 export const AppRouter: React.FC = () => {
   const protectedLayout = (
@@ -23,10 +24,10 @@ export const AppRouter: React.FC = () => {
         </Route>
         <Route path="/" element={protectedLayout}>
           <Route index element={<DashboardPage />} />
-          {/*<Route path="/users" element={<DataTables />}>*/}
-          {/*  <Route path="create" element={<AdvancedForm />} />*/}
-          {/*  <Route path=":id" element={<AdvancedForm />} />*/}
-          {/*</Route>*/}
+          <Route path="/users" element={<UserListPage />}>
+            {/*<Route path="create" element={<AdvancedForm />} />*/}
+            {/*<Route path=":id" element={<AdvancedForm />} />*/}
+          </Route>
           {/*<Route path="/products" element={<DataTables />}>*/}
           {/*  <Route path="create" element={<AdvancedForm />} />*/}
           {/*  <Route path=":id" element={<AdvancedForm />} />*/}

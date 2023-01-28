@@ -38,6 +38,10 @@ export default function Sidebar() {
       label: "Users",
       url: "/users",
     },
+    {
+      label: "Products",
+      url: "/products",
+    },
   ];
 
   return (
@@ -55,9 +59,11 @@ export default function Sidebar() {
         <List component="nav">
           {menuItems.map((item: menuItem) => {
             return (
-              <ListItem component={Link} to={item.url}>
-                <ListItemText primary={item.label} />
-              </ListItem>
+              <React.Fragment key={item.url}>
+                <ListItem component={Link} to={item.url}>
+                  <ListItemText primary={item.label} />
+                </ListItem>
+              </React.Fragment>
             );
           })}
         </List>

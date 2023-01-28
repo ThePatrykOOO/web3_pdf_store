@@ -12,25 +12,20 @@ httpApi.interceptors.request.use((config: AxiosRequestConfig) => {
   return config;
 });
 
-export class ApiError<T> extends Error {
-  options?: T;
-
-  constructor(message: string, options?: T) {
-    super(message);
-    this.options = options;
-  }
-}
-
 interface AxiosErrorResponse {
   error: string;
   message: Array<string>;
-  statusCode: string;
+  statusCode: number;
 }
 
 httpApi.interceptors.response.use(undefined, (error: AxiosError) => {
-  // @ts-ignore
+  // @ts-ignore TODO fix this
   const errorResponse: AxiosErrorResponse = error.response?.data;
-  console.log("errorResponse", errorResponse);
+
+  if (errorResponse.statusCode === 401) {
+    (window as Window).location = "/auth/login";
+    return;
+  }
 
   toast.error(errorResponse.message.join("\n"), {
     position: "top-right",

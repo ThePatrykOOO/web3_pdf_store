@@ -1,12 +1,36 @@
-import React from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { WithChildrenProps } from "../types/generalTypes";
+import { doAuthMe, setMe } from "../store/slices/authSlice";
 
 const RequireAuth: React.FC<WithChildrenProps> = ({ children }) => {
-  const token = useAppSelector((state) => state.auth.token);
+  const dispatch = useAppDispatch();
 
-  return token ? <>{children}</> : <Navigate to="/auth/login" replace />;
+  const token = useAppSelector((state) => state.auth.token);
+  let me = useAppSelector((state) => state.auth.me);
+
+  useEffect(() => {
+    function authMe() {
+      dispatch(doAuthMe()).then((res) => dispatch(setMe(res)));
+    }
+
+    if (!me) {
+      authMe();
+    }
+  }, [dispatch]);
+
+  console.log("me", token, me);
+
+  if (!me) {
+    return <div>Loading...</div>;
+  } else {
+    return token && me ? (
+      <>{children}</>
+    ) : (
+      <Navigate to="/auth/login" replace />
+    );
+  }
 };
 
-export default RequireAuth;
+export default memo(RequireAuth);
